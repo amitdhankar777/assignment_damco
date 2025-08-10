@@ -19,14 +19,14 @@ import com.makemytrip.PageObjects.Flights_Page;
 
 import Generic.Wait;
 
-public class SearchFlight_Freature {
+public class SearchFlight_Feature {
 	WebDriver driver; 
 	Flights_Page fp;
 	FlightsSearchResults_Page fsrp;
 	ExtentTest test;
 
 	
-	public SearchFlight_Freature(WebDriver driver, ExtentTest test) {
+	public SearchFlight_Feature(WebDriver driver, ExtentTest test) {
 		this.driver = driver;
 		this.test  = test;
 		fp = new Flights_Page(driver);
