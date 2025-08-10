@@ -1,6 +1,7 @@
 package UI_TestScripts;
 
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -23,8 +24,14 @@ public class MMT_UI_Tests {
     	WebDriverManager.chromedriver().setup(); // Automatically manages ChromeDriver
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
-        //options.addArguments("--Headless");
+        
         ChromeDriver driver = new ChromeDriver(options);
+        if(driver != null) {
+            driver.manage().deleteAllCookies();
+        }
+        if (driver instanceof ChromeDriver) {
+            ((ChromeDriver) driver).executeCdpCommand("Network.clearBrowserCache", new HashMap<>());
+        }
 
         try {
         	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
