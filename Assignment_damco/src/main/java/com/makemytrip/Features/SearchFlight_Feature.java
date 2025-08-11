@@ -35,7 +35,13 @@ public class SearchFlight_Feature {
 	
 	public void verifyMakeMyTripHomePage() {
 	    try {
-	    	doClick(driver, Duration.ofSeconds(20), fp.getSignInPopUpCloseButton());
+	    	//doClick(driver, Duration.ofSeconds(20), fp.getSignInPopUpCloseButton());
+			fp.getSignInPopUpCloseButton().click();
+			test.log(Status.INFO, "Closed the Sign In pop-up if it was present.");
+
+			// Wait for the title to ensure the page has loaded
+			Wait.waitForTitle(driver, Duration.ofSeconds(20),
+					"MakeMyTrip - #1 Travel Website 50% OFF on Hotels, Flights & Holiday");
 	    	test.log(Status.PASS, "Closed the Sign In pop-up successfully.");
 	        Wait.waitForTitle(driver, Duration.ofSeconds(20), "MakeMyTrip - #1 Travel Website 50% OFF on Hotels, Flights & Holiday");
 	        String actualTitle = driver.getTitle();
@@ -51,20 +57,20 @@ public class SearchFlight_Feature {
 	public void searchFlight(String fromCity, String toCity) {
 		try {
 			test.log(Status.INFO, "Searching for flights from " + fromCity + " to " + toCity);
-			    	
+			    			
 			doClick(driver, Duration.ofSeconds(20), fp.getFromCity());
-			
 			doSendKeys(driver, Duration.ofSeconds(20), fp.getFromCityPlaceholder(), fromCity);
-			//doSendKeys(driver, Duration.ofSeconds(20), fp.getFromCityPlaceholder(), Keys.ARROW_DOWN, Keys.ENTER);
-			
+			Wait.waitFor(1);
+			doSendKeys(driver, Duration.ofSeconds(20), fp.getFromCityPlaceholder(), Keys.ENTER);
 			doClick(driver, Duration.ofSeconds(20), fp.getToCity());
-			doSendKeys(driver, Duration.ofSeconds(20), fp.getToCityPlaceholder(), toCity);
+			doSendKeys(driver, Duration.ofSeconds(20), fp.getToCityPlaceholder(), "Mumbai");
+			Wait.waitFor(1);
 			doSendKeys(driver, Duration.ofSeconds(20), fp.getToCityPlaceholder(), Keys.ARROW_DOWN, Keys.ENTER);
+			//doClick(driver, Duration.ofSeconds(20), fp.getSep5Date());
+			fp.getSep5Date().click();
+			//doClick(driver, Duration.ofSeconds(20), fp.getSearchButton());
+			fp.getSearchButton().click();
 			
-			doClick(driver, Duration.ofSeconds(20), fp.getSep5Date());
-			
-			
-			doClick(driver, Duration.ofSeconds(20), fp.getSearchButton());
 			test.log(Status.PASS, "Successfully clicked on Search button.");
 			test.log(Status.PASS, "Successfully searched for flights from " + fromCity + " to " + toCity);
 			

@@ -14,7 +14,7 @@ public class Test_Script extends BaseLib_UI {
 		test.log(Status.INFO, "Test:To test the Search flight functionality");
 		SearchFlight_Feature sff = new SearchFlight_Feature(driver, test);
 		sff.verifyMakeMyTripHomePage();
-		sff.searchFlight("New Delhi", "Mumbai");
+		sff.searchFlight("Delhi", "Mumbai");
 		//sff.verifyFlightSearchResultsPage();
 		sff.sortFlightsByEarlyDeparture();
 		sff.verifyFlightDetails();

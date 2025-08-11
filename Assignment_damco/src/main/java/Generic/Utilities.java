@@ -12,8 +12,10 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.jboss.aerogear.security.otp.Totp;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -26,19 +28,41 @@ public class Utilities {
 	public static WebDriver driver;
 	public static String mainWindow;
 
-	public static void doClick(WebDriver driver, Duration time, WebElement element) {
+//	public static void doClick(WebDriver driver, Duration time, WebElement element) {
+//	    try {
+//	        WebDriverWait wait = new WebDriverWait(driver, time);
+//	        wait.ignoring(WebDriverException.class).until(ExpectedConditions.elementToBeClickable(element));
+//	        element.click();
+//	        System.out.println("Successfully clicked on the element: " + element);
+//	    } catch (Exception e) {
+//	        System.err.println("Failed to click on the element: " + element);
+//	        e.printStackTrace();
+//	        throw e;
+//	    }
+//	}
+
+	public static void doClick(WebDriver driver, Duration timeout, WebElement element) {
 	    try {
-	        WebDriverWait wait = new WebDriverWait(driver, time);
-	        wait.ignoring(WebDriverException.class).until(ExpectedConditions.elementToBeClickable(element));
-	        element.click();
+	        WebDriverWait wait = new WebDriverWait(driver, timeout);
+	        wait.pollingEvery(Duration.ofMillis(300)); // faster checks
+	        wait.ignoring(StaleElementReferenceException.class, ElementClickInterceptedException.class);
+	        
+	        WebElement clickable = wait.until(ExpectedConditions.elementToBeClickable(element));
+	        
+	        try {
+	            clickable.click();
+	        } catch (ElementClickInterceptedException e) {
+	            // Fallback to JS click if intercepted
+	            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", clickable);
+	        }
+	        
 	        System.out.println("Successfully clicked on the element: " + element);
+	        
 	    } catch (Exception e) {
 	        System.err.println("Failed to click on the element: " + element);
-	        e.printStackTrace();
 	        throw e;
 	    }
 	}
-	
 	
 	
 	public static void doSendKeys(WebDriver driver, Duration time, WebElement element, String text) {

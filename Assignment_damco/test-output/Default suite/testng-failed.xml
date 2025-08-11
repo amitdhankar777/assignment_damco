@@ -3,15 +3,11 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="API_TestScripts.TestScripts">
+      <class name="UI_TestScripts.MMT_UI_Tests">
         <methods>
-          <include name="afterMethod"/>
-          <include name="test_Delete_User"/>
-          <include name="brforeMethod"/>
-          <include name="beforeClass"/>
-          <include name="afterClass"/>
+          <include name="testFlightSearchFunctionality"/>
         </methods>
-      </class> <!-- API_TestScripts.TestScripts -->
+      </class> <!-- UI_TestScripts.MMT_UI_Tests -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

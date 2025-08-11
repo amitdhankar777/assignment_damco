@@ -13,13 +13,13 @@ public class Flights_Page {
 	@FindBy(xpath="//span[@class='commonModal__close']")
 	private @Getter WebElement signInPopUpCloseButton;
 	
-	@FindBy(xpath="//input[@data-cy='fromCity']")
+	@FindBy(id="fromCity")
 	private @Getter WebElement fromCity;
 	
 	@FindBy(xpath="//input[@placeholder='From']")
 	private @Getter WebElement fromCityPlaceholder;
 	
-	@FindBy(xpath="//input[@data-cy='toCity']")
+	@FindBy(id="toCity")
 	private @Getter WebElement toCity;
 	
 	@FindBy(xpath="//input[@placeholder='To']")
